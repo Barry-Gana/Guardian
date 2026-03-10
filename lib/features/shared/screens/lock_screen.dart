@@ -28,62 +28,67 @@ class _LockScreenState extends State<LockScreen> {
 
         return GuardianScaffold(
           title: device.name,
+          actions: [
+            IconButton(
+              icon: const Icon(LucideIcons.trash2),
+              color: AppColors.textPrimary,
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(LucideIcons.wifi),
+              color: AppColors.textPrimary,
+              onPressed: () {},
+            ),
+            const SizedBox(width: 8),
+          ],
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Hero(
                   tag: device.id,
-                  child: Icon(
-                    device.isLocked ? LucideIcons.lock : LucideIcons.lockOpen,
-                    size: 40,
-                    color: AppColors.neonBlue,
-                  ),
-                ),
-                SizedBox(height: AppSpacing.xl),
-                AnimatedContainer(
-                  duration: AppMotion.med,
-                  curve: AppMotion.smooth,
-                  width: 160,
-                  height: 160,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: device.isLocked
-                          ? AppColors.success
-                          : AppColors.danger,
-                      width: 3,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: (device.isLocked
-                                ? AppColors.success
-                                : AppColors.danger)
-                            .withValues(alpha: 0.4),
-                        blurRadius:
-                            device.isLocked ? 24 : 8,
+                  child: AnimatedContainer(
+                    duration: AppMotion.med,
+                    curve: AppMotion.smooth,
+                    width: 220,
+                    height: 220,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: device.isLocked
+                            ? AppColors.success
+                            : AppColors.danger,
+                        width: 4,
                       ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Icon(
-                      device.isLocked ? LucideIcons.lock : LucideIcons.lockOpen,
-                      size: 72,
-                      color: device.isLocked
-                          ? AppColors.success
-                          : AppColors.danger,
+                      boxShadow: [
+                        BoxShadow(
+                          color: (device.isLocked
+                                  ? AppColors.success
+                                  : AppColors.danger)
+                              .withValues(alpha: 0.4),
+                          blurRadius:
+                              device.isLocked ? 32 : 12,
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Icon(
+                        device.isLocked ? LucideIcons.doorClosed : LucideIcons.doorOpen,
+                        size: 100,
+                        color: device.isLocked
+                            ? AppColors.success
+                            : AppColors.danger,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(height: AppSpacing.lg),
                 Text(
                   device.isLocked ? 'LOCKED' : 'UNLOCKED',
-                  style: AppText.labelMono.copyWith(fontSize: 18),
-                ),
-                SizedBox(height: AppSpacing.xs),
-                Text(
-                  'Auto-lock: Enabled · 30s',
-                  style: AppText.bodySmall,
+                  style: AppText.labelMono.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 SizedBox(height: AppSpacing.lg),
                 NeonButton(

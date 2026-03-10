@@ -14,6 +14,8 @@ class AppState extends ChangeNotifier {
   late List<ActivityLogModel> _logs;
   late List<ChatMessageModel> _messages;
   bool _isLocalMode = true;
+  bool _preventUnlock = false;
+  bool _isGuardianTyping = false;
 
   AppState() {
     _devices = List.from(MockData.devices);
@@ -26,6 +28,8 @@ class AppState extends ChangeNotifier {
   List<ActivityLogModel> get logs => List.unmodifiable(_logs);
   List<ChatMessageModel> get messages => List.unmodifiable(_messages);
   bool get isLocalMode => _isLocalMode;
+  bool get preventUnlock => _preventUnlock;
+  bool get isGuardianTyping => _isGuardianTyping;
 
   // Toggle local/cloud mode
   void toggleLocalMode() {
@@ -37,7 +41,10 @@ class AppState extends ChangeNotifier {
   void toggleLock(String deviceId) {
     final idx = _devices.indexWhere((d) => d.id == deviceId);
     if (idx == -1) return;
+    
     final d = _devices[idx];
+    if (_preventUnlock && d.isLocked) return;
+
     _devices[idx] = d.copyWith(isLocked: !d.isLocked);
     final action = _devices[idx].isLocked ? 'locked' : 'unlocked';
     _addLog(
@@ -101,8 +108,33 @@ class AppState extends ChangeNotifier {
     );
     notifyListeners();
 
-    // Determine reply
     final lower = text.toLowerCase();
+    
+    if (lower == 'dont allow any unlock attempt') {
+      _preventUnlock = true;
+      _addGuardianReply(
+        'Got it. I have disabled all unlock attempts for the front door limit.',
+        MessageType.status,
+      );
+      return;
+    }
+
+    if (lower == 'allow unlock attempts') {
+      _preventUnlock = false;
+      _addGuardianReply(
+        'Got it. I have enabled all unlock attempts for the front door limit.',
+        MessageType.status,
+      );
+      return;
+    }
+
+    if (lower == 'clean the chat') {
+      _messages.clear();
+      notifyListeners();
+      return;
+    }
+
+    // Determine reply
     if (lower.contains('status')) {
       _addGuardianReply(
         'All systems nominal. ${_devices.length} devices online.',
@@ -132,15 +164,20 @@ class AppState extends ChangeNotifier {
   }
 
   void _addGuardianReply(String text, MessageType type) {
-    _messages.add(
-      ChatMessageModel(
-        id: 'm${DateTime.now().millisecondsSinceEpoch}g',
-        timestamp: DateTime.now(),
-        sender: ChatSender.guardian,
-        messageType: type,
-        text: text,
-      ),
-    );
+    _isGuardianTyping = true;
     notifyListeners();
+    Future.delayed(const Duration(seconds: 3), () {
+      _isGuardianTyping = false;
+      _messages.add(
+        ChatMessageModel(
+          id: 'm${DateTime.now().millisecondsSinceEpoch}g',
+          timestamp: DateTime.now(),
+          sender: ChatSender.guardian,
+          messageType: type,
+          text: text,
+        ),
+      );
+      notifyListeners();
+    });
   }
 }

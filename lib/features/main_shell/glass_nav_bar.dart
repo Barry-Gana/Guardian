@@ -113,9 +113,9 @@ class GlassNavBar extends StatelessWidget {
                     children: [
                       _buildNavItem(
                         index: 2,
-                        icon: LucideIcons.activity,
-                        activeIcon: LucideIcons.activity,
-                        label: 'Activity',
+                        icon: LucideIcons.slidersVertical,
+                        activeIcon: LucideIcons.slidersVertical,
+                        label: 'Control',
                       ),
                       _buildNavItem(
                         index: 3,

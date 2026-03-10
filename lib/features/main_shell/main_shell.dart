@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guardian/core/theme/app_colors.dart';
 import 'package:guardian/features/home/home_screen.dart';
 import 'package:guardian/features/ai/ai_screen.dart';
-import 'package:guardian/features/activity/activity_screen.dart';
+import 'package:guardian/features/control/control_screen.dart';
 import 'package:guardian/features/settings/settings_screen.dart';
 import 'package:guardian/features/main_shell/glass_nav_bar.dart';
 
@@ -19,7 +19,7 @@ class _MainShellState extends State<MainShell> {
   late final List<Widget> _pages = [
     const HomeScreen(),
     const AiScreen(),
-    const ActivityScreen(),
+    const ControlScreen(),
     const SettingsScreen(),
   ];
 

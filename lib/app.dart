@@ -5,6 +5,7 @@ import 'package:guardian/features/onboarding/onboarding_screen.dart';
 import 'package:guardian/features/main_shell/main_shell.dart';
 import 'package:guardian/features/add_device/add_device_screen.dart';
 import 'package:guardian/features/shared/screens/lock_screen.dart';
+import 'package:guardian/features/notifications/notifications_screen.dart';
 
 
 class GuardianApp extends StatelessWidget {
@@ -24,6 +25,7 @@ class GuardianApp extends StatelessWidget {
         '/device-lock': (_) => const LockScreen(),
 
         '/add-device': (_) => const AddDeviceScreen(),
+        '/notifications': (_) => const NotificationsScreen(),
       },
     );
   }

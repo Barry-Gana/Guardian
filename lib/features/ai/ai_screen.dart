@@ -7,7 +7,6 @@ import 'package:guardian/core/theme/app_text.dart';
 import 'package:guardian/core/theme/app_spacing.dart';
 import 'package:guardian/core/theme/app_motion.dart';
 import 'package:guardian/core/widgets/guardian_scaffold.dart';
-import 'package:guardian/core/widgets/animated_glow.dart';
 import 'package:guardian/core/widgets/glass_card.dart';
 import 'package:guardian/features/shared/models/chat_message_model.dart';
 import 'package:guardian/features/shared/state/app_state.dart';
@@ -59,6 +58,16 @@ class _AiScreenState extends State<AiScreen> {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (context, appState, _) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (_scroll.hasClients) {
+            _scroll.animateTo(
+              _scroll.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOut,
+            );
+          }
+        });
+
         return GuardianScaffold(
           body: Column(
             children: [
@@ -81,23 +90,7 @@ class _AiScreenState extends State<AiScreen> {
                   ],
                 ),
               ),
-              // Avatar
-              Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
-                  child: AnimatedGlow(
-                    child: CircleAvatar(
-                      radius: 36,
-                      backgroundColor: AppColors.surface2,
-                      child: Icon(
-                        LucideIcons.bot,
-                        size: 36,
-                        color: AppColors.neonBlue,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+
               // Chat list
               Expanded(
                 child: ListView.builder(
@@ -162,36 +155,30 @@ class _AiScreenState extends State<AiScreen> {
                   },
                 ),
               ),
-              // Quick chips
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppSpacing.md,
-                  vertical: AppSpacing.xs,
+              
+              if (appState.isGuardianTyping)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      padding: EdgeInsets.all(AppSpacing.sm),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(LucideIcons.bot, size: 14, color: AppColors.neonBlue),
+                          SizedBox(width: AppSpacing.sm),
+                          const _TypingAnimation(),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                child: Wrap(
-                  spacing: AppSpacing.xs,
-                  children: [
-                    'System Status',
-                    'Last Alerts',
-                    'Secure Home',
-                  ]
-                      .map(
-                        (label) => ActionChip(
-                          label: Text(
-                            label,
-                            style: AppText.bodySmall,
-                          ),
-                          backgroundColor: AppColors.surface2,
-                          side: BorderSide(
-                            color:
-                                AppColors.neonBlue.withValues(alpha: 0.4),
-                          ),
-                          onPressed: () => _send(label, context),
-                        ),
-                      )
-                      .toList(),
-                ),
-              ),
+
               // Input row
               Padding(
                 padding: EdgeInsets.all(AppSpacing.md),
@@ -277,6 +264,57 @@ class _PulsingDotState extends State<_PulsingDot> {
           color: AppColors.success,
         ),
       ),
+    );
+  }
+}
+
+class _TypingAnimation extends StatefulWidget {
+  const _TypingAnimation();
+  @override
+  State<_TypingAnimation> createState() => _TypingAnimationState();
+}
+
+class _TypingAnimationState extends State<_TypingAnimation> with SingleTickerProviderStateMixin {
+  late AnimationController _ctrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200))..repeat();
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _ctrl,
+      builder: (context, child) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(3, (i) {
+            final delay = i * 0.2;
+            final progress = (_ctrl.value - delay).clamp(0.0, 1.0);
+            final yOffset = -4.0 * (1 - ((progress > 0.5) ? 1.0 : progress * 2)); // jump up and down
+            return Transform.translate(
+              offset: Offset(0, yOffset),
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 2),
+                width: 6,
+                height: 6,
+                decoration: BoxDecoration(
+                  color: AppColors.neonBlue.withValues(alpha: 0.6 + (0.4 * _ctrl.value)),
+                  shape: BoxShape.circle,
+                ),
+              ),
+            );
+          }),
+        );
+      },
     );
   }
 }

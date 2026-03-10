@@ -20,11 +20,21 @@ class GuardianScaffold extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: title != null
-          ? AppBar(
-              title: Text(title!),
-              actions: actions,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(70.0),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: AppBar(
+                  titleSpacing: 4.0,
+                  title: Text(
+                    title!,
+                    style: const TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  actions: actions,
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                ),
+              ),
             )
           : null,
       body: SafeArea(child: body),

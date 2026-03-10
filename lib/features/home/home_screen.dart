@@ -28,13 +28,48 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 // Section header
                 Padding(
-                  padding: EdgeInsets.all(AppSpacing.md),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Devices',
-                      style: AppText.displayLarge,
-                    ),
+                  padding: const EdgeInsets.only(
+                    top: 36.0,
+                    left: AppSpacing.md,
+                    right: AppSpacing.md,
+                    bottom: AppSpacing.xl,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Devices',
+                        style: AppText.displayLarge,
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            LucideIcons.wifi,
+                            color: AppColors.textPrimary,
+                            size: 24,
+                          ),
+                          const SizedBox(width: 16),
+                          GestureDetector(
+                            onTap: () => Navigator.pushNamed(context, '/notifications'),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: AppColors.surface2,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: AppColors.textMuted.withValues(alpha: 0.2),
+                                ),
+                              ),
+                              child: const Icon(
+                                LucideIcons.bell,
+                                color: AppColors.textPrimary,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 // Device grid
@@ -71,9 +106,9 @@ class _DeviceCard extends StatelessWidget {
 
   const _DeviceCard(this.device);
 
-  IconData _iconForType(DeviceType type) {
-    return switch (type) {
-      DeviceType.lock => LucideIcons.lock,
+  IconData _iconForDevice(DeviceModel device) {
+    return switch (device.type) {
+      DeviceType.lock => device.isLocked ? LucideIcons.doorClosed : LucideIcons.doorOpen,
     };
   }
 
@@ -107,7 +142,7 @@ class _DeviceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
-                _iconForType(device.type),
+                _iconForDevice(device),
                 color: _colorForDevice(device),
                 size: 32,
               ),
