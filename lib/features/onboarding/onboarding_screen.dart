@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:guardian/core/theme/app_colors.dart';
 import 'package:guardian/core/theme/app_text.dart';
 import 'package:guardian/core/theme/app_spacing.dart';
@@ -27,17 +28,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final _pages = [
     _PageData(
-      Icons.security,
+      LucideIcons.shield,
       'Secure Infrastructure',
       'Local control, cloud optional, private deployments.',
     ),
     _PageData(
-      Icons.psychology,
+      LucideIcons.brain,
       'AI-Driven Monitoring',
       'Guardian AI detects unusual behavior instantly.',
     ),
     _PageData(
-      Icons.hub,
+      LucideIcons.network,
       'Scalable IoT Deployment',
       'Add devices gradually, from home to city-scale.',
     ),

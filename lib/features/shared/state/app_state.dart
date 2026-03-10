@@ -54,47 +54,17 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Toggle light
-  void toggleLight(String deviceId) {
-    final idx = _devices.indexWhere((d) => d.id == deviceId);
-    if (idx == -1) return;
-    final d = _devices[idx];
-    _devices[idx] = d.copyWith(isOn: !d.isOn);
-    final state = _devices[idx].isOn ? 'on' : 'off';
-    _addLog(
-      ActivityLogModel(
-        id: 'l${DateTime.now().millisecondsSinceEpoch}',
-        timestamp: DateTime.now(),
-        category: LogCategory.system,
-        severity: LogSeverity.info,
-        title: 'Light Turned ${state.toUpperCase()}',
-        description: '${d.name} switched $state.',
-      ),
-    );
-    _addGuardianReply('${d.name} turned $state.', MessageType.status);
-    notifyListeners();
-  }
 
-  // Update climate
-  void updateClimate(String deviceId, double newTemp, double newHum) {
-    final idx = _devices.indexWhere((d) => d.id == deviceId);
-    if (idx == -1) return;
-    _devices[idx] =
-        _devices[idx].copyWith(temperature: newTemp, humidity: newHum);
-    notifyListeners();
-  }
+
+
 
   // Add device
   void addDevice(DeviceType type, String connectionMode) {
     final names = {
       DeviceType.lock: 'New Lock',
-      DeviceType.light: 'New Light',
-      DeviceType.climate: 'New Sensor',
     };
     final rooms = {
       DeviceType.lock: 'Entry',
-      DeviceType.light: 'Room',
-      DeviceType.climate: 'Zone',
     };
     _devices.add(
       DeviceModel(

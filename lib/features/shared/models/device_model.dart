@@ -1,4 +1,4 @@
-enum DeviceType { lock, light, climate }
+enum DeviceType { lock }
 
 class DeviceModel {
   final String id;

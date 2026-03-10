@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:guardian/core/theme/app_colors.dart';
 import 'package:guardian/core/theme/app_text.dart';
 import 'package:guardian/core/theme/app_spacing.dart';
@@ -31,7 +32,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   radius: 28,
                   backgroundColor: AppColors.surface2,
                   child: Icon(
-                    Icons.shield,
+                    LucideIcons.shield,
                     color: AppColors.neonBlue,
                     size: 28,
                   ),
@@ -63,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _DeployOption(
                   title: 'Cloud Connected',
                   subtitle: 'Managed cloud infrastructure',
-                  icon: Icons.cloud,
+                  icon: LucideIcons.cloud,
                   selected: _deployCloud,
                   onTap: () => setState(() => _deployCloud = true),
                 ),
@@ -71,7 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _DeployOption(
                   title: 'Private Local Server',
                   subtitle: 'Air-gapped / on-premise',
-                  icon: Icons.storage,
+                  icon: LucideIcons.database,
                   selected: !_deployCloud,
                   badge: 'ENTERPRISE',
                   onTap: () => setState(() => _deployCloud = false),
@@ -106,7 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 ListTile(
                   leading: Icon(
-                    Icons.info_outline,
+                    LucideIcons.info,
                     color: AppColors.neonBlue,
                   ),
                   title: Text(
@@ -120,7 +121,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.gavel_outlined,
+                    LucideIcons.gavel,
                     color: AppColors.textMuted,
                   ),
                   title: Text(
@@ -212,7 +213,7 @@ class _DeployOption extends StatelessWidget {
       ),
       trailing: selected
           ? Icon(
-              Icons.check_circle,
+              LucideIcons.circleCheck,
               color: AppColors.neonBlue,
             )
           : null,

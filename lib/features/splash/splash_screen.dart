@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:guardian/core/theme/app_colors.dart';
 import 'package:guardian/core/theme/app_text.dart';
 import 'package:guardian/core/theme/app_spacing.dart';
@@ -39,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               AnimatedGlow(
                 child: Icon(
-                  Icons.shield,
+                  LucideIcons.shield,
                   size: 80,
                   color: AppColors.neonBlue,
                 ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:guardian/core/theme/app_colors.dart';
 import 'package:guardian/core/theme/app_text.dart';
@@ -155,74 +156,24 @@ class _StepChooseType extends StatelessWidget {
           style: AppText.headingMed,
         ),
         SizedBox(height: AppSpacing.lg),
-        Row(
-          children: [
-            Expanded(
-              child: GlassCard(
-                onTap: () => onTypeSelected(DeviceType.lock),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.lock,
-                      size: 40,
-                      color: AppColors.neonBlue,
-                    ),
-                    SizedBox(height: AppSpacing.sm),
-                    Text(
-                      'Lock',
-                      style: AppText.bodyReg,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+        GlassCard(
+          onTap: () => onTypeSelected(DeviceType.lock),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                LucideIcons.lock,
+                size: 40,
+                color: AppColors.neonBlue,
               ),
-            ),
-            SizedBox(width: AppSpacing.sm),
-            Expanded(
-              child: GlassCard(
-                onTap: () => onTypeSelected(DeviceType.light),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.lightbulb_outline,
-                      size: 40,
-                      color: AppColors.neonBlue,
-                    ),
-                    SizedBox(height: AppSpacing.sm),
-                    Text(
-                      'Light',
-                      style: AppText.bodyReg,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+              SizedBox(height: AppSpacing.sm),
+              Text(
+                'Lock',
+                style: AppText.bodyReg,
+                textAlign: TextAlign.center,
               ),
-            ),
-            SizedBox(width: AppSpacing.sm),
-            Expanded(
-              child: GlassCard(
-                onTap: () => onTypeSelected(DeviceType.climate),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.thermostat,
-                      size: 40,
-                      color: AppColors.neonBlue,
-                    ),
-                    SizedBox(height: AppSpacing.sm),
-                    Text(
-                      'Climate',
-                      style: AppText.bodyReg,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
@@ -261,7 +212,7 @@ class _StepChooseMode extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.bluetooth_connected,
+                          LucideIcons.bluetooth,
                           size: 40,
                           color: AppColors.neonBlue,
                         ),
@@ -289,7 +240,7 @@ class _StepChooseMode extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.qr_code_scanner,
+                          LucideIcons.qrCode,
                           size: 40,
                           color: AppColors.neonBlue,
                         ),
@@ -334,7 +285,7 @@ class _StepPairing extends StatelessWidget {
         children: [
           AnimatedGlow(
             child: Icon(
-              Icons.sensors,
+              LucideIcons.radioTower,
               size: 64,
               color: AppColors.neonBlue,
             ),

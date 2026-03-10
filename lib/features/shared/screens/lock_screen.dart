@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:guardian/core/theme/app_colors.dart';
 import 'package:guardian/core/theme/app_text.dart';
@@ -34,7 +35,7 @@ class _LockScreenState extends State<LockScreen> {
                 Hero(
                   tag: device.id,
                   child: Icon(
-                    device.isLocked ? Icons.lock : Icons.lock_open,
+                    device.isLocked ? LucideIcons.lock : LucideIcons.lockOpen,
                     size: 40,
                     color: AppColors.neonBlue,
                   ),
@@ -66,7 +67,7 @@ class _LockScreenState extends State<LockScreen> {
                   ),
                   child: Center(
                     child: Icon(
-                      device.isLocked ? Icons.lock : Icons.lock_open,
+                      device.isLocked ? LucideIcons.lock : LucideIcons.lockOpen,
                       size: 72,
                       color: device.isLocked
                           ? AppColors.success

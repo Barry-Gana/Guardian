@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:guardian/core/theme/app_colors.dart';
 import 'package:guardian/core/theme/app_text.dart';
@@ -43,9 +44,9 @@ class _AiScreenState extends State<AiScreen> {
   }
 
   IconData _iconForType(MessageType t) => switch (t) {
-    MessageType.status => Icons.check_circle_outline,
-    MessageType.alert => Icons.warning_amber_outlined,
-    MessageType.insight => Icons.auto_awesome,
+    MessageType.status => LucideIcons.circleCheck,
+    MessageType.alert => LucideIcons.triangleAlert,
+    MessageType.insight => LucideIcons.sparkles,
   };
 
   Color _colorForType(MessageType t) => switch (t) {
@@ -89,7 +90,7 @@ class _AiScreenState extends State<AiScreen> {
                       radius: 36,
                       backgroundColor: AppColors.surface2,
                       child: Icon(
-                        Icons.smart_toy,
+                        LucideIcons.bot,
                         size: 36,
                         color: AppColors.neonBlue,
                       ),
@@ -222,7 +223,7 @@ class _AiScreenState extends State<AiScreen> {
                     SizedBox(width: AppSpacing.sm),
                     IconButton(
                       icon: Icon(
-                        Icons.send,
+                        LucideIcons.send,
                         color: AppColors.neonBlue,
                       ),
                       onPressed: () => _send(_ctrl.text, context),

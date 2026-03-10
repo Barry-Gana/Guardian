@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:guardian/core/theme/app_colors.dart';
 
 class GlassNavBar extends StatelessWidget {
@@ -54,14 +55,14 @@ class GlassNavBar extends StatelessWidget {
                     children: [
                       _buildNavItem(
                         index: 0,
-                        icon: Icons.home_outlined,
-                        activeIcon: Icons.home,
+                        icon: LucideIcons.house,
+                        activeIcon: LucideIcons.house,
                         label: 'Home',
                       ),
                       _buildNavItem(
                         index: 1,
-                        icon: Icons.smart_toy_outlined,
-                        activeIcon: Icons.smart_toy,
+                        icon: LucideIcons.bot,
+                        activeIcon: LucideIcons.bot,
                         label: 'AI',
                       ),
                     ],
@@ -97,7 +98,7 @@ class GlassNavBar extends StatelessWidget {
                         onTap: onAddDevice,
                         customBorder: const CircleBorder(),
                         child: const Icon(
-                          Icons.add,
+                          LucideIcons.plus,
                           color: AppColors.background,
                           size: 28,
                         ),
@@ -112,14 +113,14 @@ class GlassNavBar extends StatelessWidget {
                     children: [
                       _buildNavItem(
                         index: 2,
-                        icon: Icons.timeline_outlined,
-                        activeIcon: Icons.timeline,
+                        icon: LucideIcons.activity,
+                        activeIcon: LucideIcons.activity,
                         label: 'Activity',
                       ),
                       _buildNavItem(
                         index: 3,
-                        icon: Icons.settings_outlined,
-                        activeIcon: Icons.settings,
+                        icon: LucideIcons.settings,
+                        activeIcon: LucideIcons.settings,
                         label: 'Settings',
                       ),
                     ],

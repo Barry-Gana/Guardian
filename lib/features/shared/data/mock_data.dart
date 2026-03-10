@@ -11,28 +11,6 @@ abstract class MockData {
       type: DeviceType.lock,
       isLocked: true,
     ),
-    DeviceModel(
-      id: 'd2',
-      name: 'Living Room',
-      room: 'Living',
-      type: DeviceType.light,
-      isOn: true,
-    ),
-    DeviceModel(
-      id: 'd3',
-      name: 'Office Lamp',
-      room: 'Office',
-      type: DeviceType.light,
-      isOn: false,
-    ),
-    DeviceModel(
-      id: 'd4',
-      name: 'Main HVAC',
-      room: 'Central',
-      type: DeviceType.climate,
-      temperature: 21.4,
-      humidity: 58.0,
-    ),
   ];
 
   static List<ActivityLogModel> get logs => [
