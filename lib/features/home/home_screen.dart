@@ -18,6 +18,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  IconData _getConnectionIcon(ConnectionMode mode) {
+    return switch (mode) {
+      ConnectionMode.internet => LucideIcons.wifi,
+      ConnectionMode.bluetooth => LucideIcons.bluetooth,
+      ConnectionMode.localWiFi => LucideIcons.houseWifi,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(
@@ -43,8 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Row(
                         children: [
-                          const Icon(
-                            LucideIcons.wifi,
+                          Icon(
+                            _getConnectionIcon(appState.connectionMode),
                             color: AppColors.textPrimary,
                             size: 24,
                           ),

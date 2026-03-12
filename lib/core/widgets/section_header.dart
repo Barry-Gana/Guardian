@@ -16,7 +16,7 @@ class SectionHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
       child: Text(
         title.toUpperCase(),
-        style: AppText.labelSmall,
+        style: AppText.sectionTitle,
       ),
     );
   }

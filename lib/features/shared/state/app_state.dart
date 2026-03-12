@@ -9,11 +9,13 @@ extension StringExt on String {
       isEmpty ? this : '${this[0].toUpperCase()}${substring(1)}';
 }
 
+enum ConnectionMode { internet, bluetooth, localWiFi }
+
 class AppState extends ChangeNotifier {
   late List<DeviceModel> _devices;
   late List<ActivityLogModel> _logs;
   late List<ChatMessageModel> _messages;
-  bool _isLocalMode = true;
+  ConnectionMode _connectionMode = ConnectionMode.internet;
   bool _preventUnlock = false;
   bool _isGuardianTyping = false;
 
@@ -27,13 +29,14 @@ class AppState extends ChangeNotifier {
   List<DeviceModel> get devices => List.unmodifiable(_devices);
   List<ActivityLogModel> get logs => List.unmodifiable(_logs);
   List<ChatMessageModel> get messages => List.unmodifiable(_messages);
-  bool get isLocalMode => _isLocalMode;
+  ConnectionMode get connectionMode => _connectionMode;
   bool get preventUnlock => _preventUnlock;
   bool get isGuardianTyping => _isGuardianTyping;
 
-  // Toggle local/cloud mode
-  void toggleLocalMode() {
-    _isLocalMode = !_isLocalMode;
+  // Set connection mode
+  void setConnectionMode(ConnectionMode mode) {
+    if (_connectionMode == mode) return;
+    _connectionMode = mode;
     notifyListeners();
   }
 

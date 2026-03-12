@@ -41,4 +41,11 @@ abstract class AppText {
         color: AppColors.textMuted,
         letterSpacing: 0.8,
       );
+
+  static TextStyle get sectionTitle => GoogleFonts.inter(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: AppColors.textMuted,
+        letterSpacing: 1.0,
+      );
 }
